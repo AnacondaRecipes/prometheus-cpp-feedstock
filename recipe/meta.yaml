@@ -21,19 +21,17 @@ build:
 requirements:
   build:
     - {{ stdlib('c') }}
+    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - cmake >=3.1
-    - ninja
-
-    # For cross-compiling
-    - libcurl                 # [build_platform != target_platform]
-    - curl                    # [build_platform != target_platform]
-    - zlib                    # [build_platform != target_platform]
+    - cmake >=3.14
+    - ninja-base
+    - {{ compiler('c') }}  # [build_platform != target_platform]
+    - libcurl              # [build_platform != target_platform]
+    - zlib                 # [build_platform != target_platform]
   host:
-    - libcurl
-    - zlib
+    - libcurl {{ libcurl }}
+    - zlib {{ zlib }}
   run:
-    - zlib
     - libcurl
 
 test:
@@ -63,6 +61,7 @@ about:
     Prometheus Data Model, a powerful abstraction on which to collect and expose metrics. We
     offer the possibility for metrics to be collected by Prometheus, but other push/pull collections
     can be added as plugins.
+  doc_url: https://prometheus-cpp.readthedocs.io/en/read-the-docs
   dev_url: https://github.com/jupp0r/prometheus-cpp
 
 extra:
